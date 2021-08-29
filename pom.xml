@@ -15,6 +15,7 @@
 	<description>api REST for FDC and archives</description>
 	<properties>
 		<java.version>11</java.version>
+		<sonar.projectKey>faluche_api-codum</sonar.projectKey>
 	</properties>
 	<dependencies>
 		<dependency>
