@@ -52,7 +52,7 @@ public class SubjectService {
                     return subjectRepository.save(subject);
                 })
                 .orElseGet(() -> {
-                    newSubject.setIdSubject(IdSubject);
+                    newSubject.setId(IdSubject);
                     return subjectRepository.save(newSubject);
                 });
     }
@@ -61,5 +61,6 @@ public class SubjectService {
     public void deleteSubject(Long IdSubject) {
         subjectRepository.deleteById(IdSubject);
     }
+
 
 }

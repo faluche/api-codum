@@ -9,24 +9,25 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/subject")
+@RequestMapping("api/v1/subject")
 public class SubjectController {
 
     @Autowired
     private SubjectService subjectService;
 
+
     @PostMapping
-    public Subject newSubject(@RequestBody Subject subject){
+    public Subject newSubject(@RequestBody Subject subject) {
         return subjectService.newSubject(subject);
     }
 
     @GetMapping("/{IdSubject}")
-    public EntityModel<Subject> one(@PathVariable Long IdSubject){
+    public EntityModel<Subject> one(@PathVariable Long IdSubject) {
         return subjectService.one(IdSubject);
     }
 
     @GetMapping
-    public CollectionModel<EntityModel<Subject>> all(){
+    public CollectionModel<EntityModel<Subject>> all() {
         return subjectService.all();
     }
 
@@ -36,7 +37,7 @@ public class SubjectController {
     }
 
     @DeleteMapping("/{IdSubject}")
-    public  void deleteSubject(@PathVariable Long IdSubject){
+    public void deleteSubject(@PathVariable Long IdSubject) {
         subjectService.deleteSubject(IdSubject);
     }
 

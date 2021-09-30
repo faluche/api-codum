@@ -39,12 +39,12 @@ public class MessageService {
         return messageAssembler.toModel(message);
     }
 
-    public CollectionModel<EntityModel<Message>> all() {
-        List<EntityModel<Message>> messages = messageRepository.findAll().stream()
+    public CollectionModel<EntityModel<Message>> all(Long idSubject) {
+        List<EntityModel<Message>> messages = messageRepository.findBySubjectId(idSubject).stream()
                 .map(messageAssembler::toModel)
                 .collect(Collectors.toList());
 
-        return CollectionModel.of(messages, linkTo(methodOn(MessageController.class).all()).withSelfRel());
+        return CollectionModel.of(messages, linkTo(methodOn(MessageController.class).all(idSubject)).withSelfRel());
     }
 
     public  Message editMessage(Message newMessage, Long idMessage) {
@@ -55,7 +55,7 @@ public class MessageService {
                     return messageRepository.save(message);
                 })
                 .orElseGet(() -> {
-                    newMessage.setIdMessage(idMessage);
+                    newMessage.setId(idMessage);
                     return messageRepository.save(newMessage);
                 });
     }
