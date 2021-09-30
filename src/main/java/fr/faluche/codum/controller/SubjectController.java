@@ -21,9 +21,9 @@ public class SubjectController {
         return subjectService.newSubject(subject);
     }
 
-    @GetMapping("/{IdSubject}")
-    public EntityModel<Subject> one(@PathVariable Long IdSubject) {
-        return subjectService.one(IdSubject);
+    @GetMapping("/{idSubject}")
+    public EntityModel<Subject> one(@PathVariable Long idSubject) {
+        return subjectService.one(idSubject);
     }
 
     @GetMapping
@@ -31,14 +31,14 @@ public class SubjectController {
         return subjectService.all();
     }
 
-    @PutMapping("/{IdSubject}")
-    public Subject editSubject(@RequestBody Subject newSubject, @PathVariable Long IdSubject) {
-        return subjectService.editSubject(newSubject, IdSubject);
+    @PutMapping("/{idSubject}")
+    public Subject editSubject(@RequestBody Subject newSubject, @PathVariable Long idSubject) {
+        return subjectService.editSubject(newSubject, idSubject);
     }
 
-    @DeleteMapping("/{IdSubject}")
-    public void deleteSubject(@PathVariable Long IdSubject) {
-        subjectService.deleteSubject(IdSubject);
+    @DeleteMapping("/{idSubject}")
+    public void deleteSubject(@PathVariable Long idSubject) {
+        subjectService.deleteSubject(idSubject);
     }
 
 }

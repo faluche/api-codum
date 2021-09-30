@@ -1,8 +1,8 @@
 package fr.faluche.codum.exception;
 
 public class MessageNotFoundException extends RuntimeException {
-    public MessageNotFoundException(Long IdMessage){
-        super("Could not find message -->" + IdMessage);
+    public MessageNotFoundException(Long idMessage){
+        super("Could not find message --> " + idMessage);
     }
 
 }

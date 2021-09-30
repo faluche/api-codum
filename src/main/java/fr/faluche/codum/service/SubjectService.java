@@ -44,22 +44,22 @@ public class SubjectService {
         return CollectionModel.of(subject, linkTo(methodOn(SubjectController.class).all()).withSelfRel());
     }
 
-    public Subject editSubject(Subject newSubject,Long IdSubject) {
+    public Subject editSubject(Subject newSubject,Long idSubject) {
 
-        return subjectRepository.findById(IdSubject)
+        return subjectRepository.findById(idSubject)
                 .map(subject-> {
                     subject.setName(newSubject.getName());
                     return subjectRepository.save(subject);
                 })
                 .orElseGet(() -> {
-                    newSubject.setId(IdSubject);
+                    newSubject.setId(idSubject);
                     return subjectRepository.save(newSubject);
                 });
     }
 
 
-    public void deleteSubject(Long IdSubject) {
-        subjectRepository.deleteById(IdSubject);
+    public void deleteSubject(Long idSubject) {
+        subjectRepository.deleteById(idSubject);
     }
 
 

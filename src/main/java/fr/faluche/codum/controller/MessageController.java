@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("api/v1/subject/{IdSubject}/messages")
+@RequestMapping("api/v1/subject/{idSubject}/messages")
 public class MessageController {
 
     @Autowired
@@ -19,30 +19,30 @@ public class MessageController {
 
 
     @PostMapping
-    public Message newMessage(@RequestBody Message message,@PathVariable Long IdSubject){
-        message.setSubject(new Subject(IdSubject,""));
+    public Message newMessage(@RequestBody Message message,@PathVariable Long idSubject){
+        message.setSubject(new Subject(idSubject,""));
         return messageService.newMessage(message);
     }
 
-    @GetMapping("/{IdMessage}")
-    public EntityModel<Message> one(@PathVariable Long IdMessage,@PathVariable Long IdSubject){
-        return messageService.one(IdMessage);
+    @GetMapping("/{idMessage}")
+    public EntityModel<Message> one(@PathVariable Long idMessage,@PathVariable Long idSubject){
+        return messageService.one(idSubject);
     }
 
     @GetMapping
-    public CollectionModel<EntityModel<Message>> all(@PathVariable Long IdSubject){
-        return messageService.all(IdSubject);
+    public CollectionModel<EntityModel<Message>> all(@PathVariable Long idSubject){
+        return messageService.all(idSubject);
     }
 
-    @PutMapping("/{IdMessage}")
-    public Message editMessage(@RequestBody Message newMessage, @PathVariable Long IdMessage,@PathVariable Long IdSubject) {
-        newMessage.setSubject(new Subject(IdSubject,""));
-        return messageService.editMessage(newMessage, IdMessage);
+    @PutMapping("/{idMessage}")
+    public Message editMessage(@RequestBody Message newMessage, @PathVariable Long idMessage,@PathVariable Long idSubject) {
+        newMessage.setSubject(new Subject(idMessage,""));
+        return messageService.editMessage(newMessage, idMessage);
     }
 
-    @DeleteMapping("/{IdMessage}")
-    public  void deleteMessage(@PathVariable Long IdMessage){
-        messageService.deleteMessage(IdMessage);
+    @DeleteMapping("/{idMessage}")
+    public  void deleteMessage(@PathVariable Long idMessage){
+        messageService.deleteMessage(idMessage);
     }
 
 
