@@ -5,4 +5,8 @@ public class MessageNotFoundException extends RuntimeException {
         super("Could not find message --> " + idMessage);
     }
 
+    public MessageNotFoundException(Long idMessage, Long idSubject){
+        super("Could not find the message "+ idMessage + "in subject "+idSubject );
+    }
+
 }

@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+
 @Service
 public class SubjectService {
 
@@ -23,7 +24,6 @@ public class SubjectService {
     private SubjectRepository subjectRepository;
     @Autowired
     private SubjectModelAssembler subjectAssembler;
-
 
     public Subject newSubject(Subject subject){
         return subjectRepository.save(subject);

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("api/v1/subject/{idSubject}/messages")
+@RequestMapping(value={"/api/v1/subject/{idSubject}/messages","/api/v1/topic/{idTopic}/subject/{idSubject}/messages"})
 public class MessageController {
 
     @Autowired
@@ -20,13 +20,15 @@ public class MessageController {
 
     @PostMapping
     public Message newMessage(@RequestBody Message message,@PathVariable Long idSubject){
-        message.setSubject(new Subject(idSubject,""));
+        messageService.subjectExists(idSubject);
+        message.setSubject(new Subject(idSubject, ""));
         return messageService.newMessage(message);
+
     }
 
     @GetMapping("/{idMessage}")
     public EntityModel<Message> one(@PathVariable Long idMessage,@PathVariable Long idSubject){
-        return messageService.one(idSubject);
+        return messageService.one(idMessage,idSubject);
     }
 
     @GetMapping

@@ -2,6 +2,7 @@ package fr.faluche.codum.service;
 
 import fr.faluche.codum.controller.MessageController;
 import fr.faluche.codum.exception.MessageNotFoundException;
+import fr.faluche.codum.exception.SubjectNotFoundException;
 import fr.faluche.codum.model.Message;
 import fr.faluche.codum.model.MessageModelAssembler;
 import fr.faluche.codum.repository.MessageRepository;
@@ -11,6 +12,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -32,9 +34,19 @@ public class MessageService {
     }
 
 
-    public EntityModel<Message> one(Long idMessage) {
-        Message message = messageRepository.findById(idMessage)
-                .orElseThrow(() -> new MessageNotFoundException(idMessage));
+    public void subjectExists(Long idSubject) throws SubjectNotFoundException{
+        List<Message> messageList = messageRepository.findAll();
+
+        boolean exist = false;
+        for(Message M: messageList){
+            if(M.getSubject().getId() == idSubject) exist = true;
+        }
+        if(!exist) throw new SubjectNotFoundException(idSubject);
+    }
+
+    public EntityModel<Message> one(Long idMessage,Long idSubject) {
+        Message message = messageRepository.findBySubjectIdAndId(idSubject,idMessage);
+        if (Objects.isNull(message)) throw new  MessageNotFoundException(idMessage,idSubject);
 
         return messageAssembler.toModel(message);
     }

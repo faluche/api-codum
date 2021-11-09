@@ -1,6 +1,7 @@
 package fr.faluche.codum.model;
 
 
+import fr.faluche.codum.controller.MessageController;
 import fr.faluche.codum.controller.SubjectController;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
@@ -16,6 +17,7 @@ public class SubjectModelAssembler implements RepresentationModelAssembler<Subje
     public EntityModel<Subject> toModel(Subject subject){
         return EntityModel.of(subject,
                 linkTo(methodOn(SubjectController.class).one(subject.getId())).withSelfRel(),
+                linkTo(methodOn(MessageController.class).all(subject.getId())).withRel("messages"),
                 linkTo(methodOn(SubjectController.class).all()).withRel("subject"));
     }
 }

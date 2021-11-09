@@ -8,4 +8,5 @@ import java.util.List;
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
     public List<Message> findBySubjectId(Long id);
+    public Message findBySubjectIdAndId(Long idSubject,Long idMessage);
 }
