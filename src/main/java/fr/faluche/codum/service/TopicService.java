@@ -3,7 +3,7 @@ package fr.faluche.codum.service;
 import fr.faluche.codum.controller.TopicController;
 import fr.faluche.codum.exception.TopicNotFoundException;
 import fr.faluche.codum.model.Topic;
-import fr.faluche.codum.model.TopicModelAssembler;
+import fr.faluche.codum.model.assembler.TopicModelAssembler;
 import fr.faluche.codum.repository.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;

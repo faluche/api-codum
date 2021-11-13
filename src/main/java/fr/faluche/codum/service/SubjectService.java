@@ -4,7 +4,7 @@ import fr.faluche.codum.controller.SubjectController;
 import fr.faluche.codum.exception.SubjectNotFoundException;
 import fr.faluche.codum.exception.TopicNotFoundException;
 import fr.faluche.codum.model.Subject;
-import fr.faluche.codum.model.SubjectModelAssembler;
+import fr.faluche.codum.model.assembler.SubjectModelAssembler;
 import fr.faluche.codum.repository.SubjectRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

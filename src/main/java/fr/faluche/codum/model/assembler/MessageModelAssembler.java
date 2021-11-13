@@ -1,6 +1,7 @@
-package fr.faluche.codum.model;
+package fr.faluche.codum.model.assembler;
 
 import fr.faluche.codum.controller.MessageController;
+import fr.faluche.codum.model.Message;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;

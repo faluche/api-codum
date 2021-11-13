@@ -1,7 +1,8 @@
-package fr.faluche.codum.model;
+package fr.faluche.codum.model.assembler;
 
 import fr.faluche.codum.controller.SubjectController;
 import fr.faluche.codum.controller.TopicController;
+import fr.faluche.codum.model.Topic;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
