@@ -12,4 +12,11 @@ public class MessageNotFoundAdvice {
     String messageNotFoundHandler(MessageNotFoundException e) {
         return e.getMessage();
     }
+
+    @ResponseBody
+    @ExceptionHandler(SubjectNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    String subjectNotFoundHandler(SubjectNotFoundException e) {
+        return e.getMessage();
+    }
 }

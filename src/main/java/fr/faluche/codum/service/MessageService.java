@@ -33,13 +33,15 @@ public class MessageService {
         return messageRepository.save(message);
     }
 
-
-    public void subjectExists(Long idSubject) throws SubjectNotFoundException{
+    public void subjectExists(Long idSubject){
         List<Message> messageList = messageRepository.findAll();
 
         boolean exist = false;
         for(Message M: messageList){
-            if(M.getSubject().getId() == idSubject) exist = true;
+            if(M.getSubject().getId() == idSubject){
+                exist = true;
+                break;
+            }
         }
         if(!exist) throw new SubjectNotFoundException(idSubject);
     }
