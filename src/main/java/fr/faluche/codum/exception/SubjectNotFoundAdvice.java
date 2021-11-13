@@ -12,7 +12,7 @@ public class SubjectNotFoundAdvice {
     @ResponseBody
     @ExceptionHandler(SubjectNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String subjectNotFoundHandler(MessageNotFoundException e){
+    String subjectNotFoundHandler(MessageNotFoundException e) {
         return e.getMessage();
     }
 }

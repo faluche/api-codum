@@ -1,6 +1,7 @@
 package fr.faluche.codum.controller;
 
 import fr.faluche.codum.model.Subject;
+import fr.faluche.codum.model.Topic;
 import fr.faluche.codum.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("api/v1/subject")
+@RequestMapping("api/v1/topic/{idTopic}/subject")
 public class SubjectController {
 
     @Autowired
@@ -17,22 +18,25 @@ public class SubjectController {
 
 
     @PostMapping
-    public Subject newSubject(@RequestBody Subject subject) {
+    public Subject newSubject(@RequestBody Subject subject,@PathVariable Long idTopic) {
+        subjectService.topicExists(idTopic);
+        subject.setTopic(new Topic(idTopic,""));
         return subjectService.newSubject(subject);
     }
 
     @GetMapping("/{idSubject}")
-    public EntityModel<Subject> one(@PathVariable Long idSubject) {
-        return subjectService.one(idSubject);
+    public EntityModel<Subject> one(@PathVariable Long idSubject,@PathVariable Long idTopic) {
+        return subjectService.one(idSubject,idTopic);
     }
 
     @GetMapping
-    public CollectionModel<EntityModel<Subject>> all() {
-        return subjectService.all();
+    public CollectionModel<EntityModel<Subject>> all(@PathVariable Long idTopic) {
+        return subjectService.all(idTopic);
     }
 
     @PutMapping("/{idSubject}")
-    public Subject editSubject(@RequestBody Subject newSubject, @PathVariable Long idSubject) {
+    public Subject editSubject(@RequestBody Subject newSubject, @PathVariable Long idSubject,@PathVariable Long idTopic) {
+        newSubject.setTopic(new Topic(idTopic,""));
         return subjectService.editSubject(newSubject, idSubject);
     }
 

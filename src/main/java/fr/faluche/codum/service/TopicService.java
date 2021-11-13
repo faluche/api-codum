@@ -30,8 +30,8 @@ public class TopicService {
     }
 
     public EntityModel<Topic> one(long idTopic){
-        Topic topic = topicRepository.findById(idTopic)
-                .orElseThrow(()-> new TopicNotFoundException(idTopic));
+        Topic topic = topicRepository.findById(idTopic).orElseThrow(()-> new TopicNotFoundException(idTopic));
+
 
         return topicAssembler.toModel(topic);
     }

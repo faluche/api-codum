@@ -16,8 +16,8 @@ public class SubjectModelAssembler implements RepresentationModelAssembler<Subje
     @Override
     public EntityModel<Subject> toModel(Subject subject){
         return EntityModel.of(subject,
-                linkTo(methodOn(SubjectController.class).one(subject.getId())).withSelfRel(),
-                linkTo(methodOn(MessageController.class).all(subject.getId())).withRel("messages"),
-                linkTo(methodOn(SubjectController.class).all()).withRel("subject"));
+                linkTo(methodOn(SubjectController.class).one(subject.getId(),subject.getTopic().getId())).withSelfRel(),
+                linkTo(methodOn(MessageController.class).all(subject.getId(),subject.getTopic().getId())).withRel("messages"),
+                linkTo(methodOn(SubjectController.class).all(subject.getTopic().getId())).withRel("subject"));
     }
 }

@@ -6,18 +6,23 @@ import fr.faluche.codum.exception.SubjectNotFoundException;
 import fr.faluche.codum.model.Message;
 import fr.faluche.codum.model.MessageModelAssembler;
 import fr.faluche.codum.repository.MessageRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static fr.faluche.codum.util.Utils.checkIfResourceExists;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@Slf4j
 @Service
 public class MessageService {
 
@@ -33,32 +38,36 @@ public class MessageService {
         return messageRepository.save(message);
     }
 
-    public void subjectExists(Long idSubject){
-        List<Message> messageList = messageRepository.findAll();
+    public void subjectExists(Long idSubject,Long idTopic ){
 
-        boolean exist = false;
-        for(Message M: messageList){
-            if(M.getSubject().getId() == idSubject){
-                exist = true;
-                break;
-            }
+        //TODO find a solution to replace the URL to function/variable
+
+        try {
+            boolean exist;
+            URL local = new URL("http://localhost:8080/api/v1/topic/"+ idTopic+"/subject/"+ idSubject);
+            exist =checkIfResourceExists(local);
+            if(!exist) throw new SubjectNotFoundException(idSubject,idTopic);
+
+        } catch (IOException e){
+            e.printStackTrace();
         }
-        if(!exist) throw new SubjectNotFoundException(idSubject);
+
+
     }
 
-    public EntityModel<Message> one(Long idMessage,Long idSubject) {
+    public EntityModel<Message> one(Long idMessage,Long idSubject,Long idTopic) {
         Message message = messageRepository.findBySubjectIdAndId(idSubject,idMessage);
-        if (Objects.isNull(message)) throw new  MessageNotFoundException(idMessage,idSubject);
+        if (Objects.isNull(message)) throw new  MessageNotFoundException(idMessage,idSubject,idTopic);
 
         return messageAssembler.toModel(message);
     }
 
-    public CollectionModel<EntityModel<Message>> all(Long idSubject) {
+    public CollectionModel<EntityModel<Message>> all(Long idSubject,Long idTopic) {
         List<EntityModel<Message>> messages = messageRepository.findBySubjectId(idSubject).stream()
                 .map(messageAssembler::toModel)
                 .collect(Collectors.toList());
 
-        return CollectionModel.of(messages, linkTo(methodOn(MessageController.class).all(idSubject)).withSelfRel());
+        return CollectionModel.of(messages, linkTo(methodOn(MessageController.class).all(idSubject,idTopic)).withSelfRel());
     }
 
     public  Message editMessage(Message newMessage, Long idMessage) {

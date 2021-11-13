@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping(value={"/api/v1/subject/{idSubject}/messages","/api/v1/topic/{idTopic}/subject/{idSubject}/messages"})
+@RequestMapping(value={"/api/v1/topic/{idTopic}/subject/{idSubject}/messages"})
 public class MessageController {
 
     @Autowired
@@ -19,26 +19,26 @@ public class MessageController {
 
 
     @PostMapping
-    public Message newMessage(@RequestBody Message message,@PathVariable Long idSubject){
-        messageService.subjectExists(idSubject);
-        message.setSubject(new Subject(idSubject, ""));
+    public Message newMessage(@RequestBody Message message,@PathVariable Long idSubject,@PathVariable Long idTopic){
+        messageService.subjectExists(idSubject,idTopic);
+        message.setSubject(new Subject(idSubject, "",null));
         return messageService.newMessage(message);
 
     }
 
     @GetMapping("/{idMessage}")
-    public EntityModel<Message> one(@PathVariable Long idMessage,@PathVariable Long idSubject){
-        return messageService.one(idMessage,idSubject);
+    public EntityModel<Message> one(@PathVariable Long idMessage,@PathVariable Long idSubject,@PathVariable Long idTopic){
+        return messageService.one(idMessage,idSubject,idTopic);
     }
 
     @GetMapping
-    public CollectionModel<EntityModel<Message>> all(@PathVariable Long idSubject){
-        return messageService.all(idSubject);
+    public CollectionModel<EntityModel<Message>> all(@PathVariable Long idSubject,@PathVariable Long idTopic){
+        return messageService.all(idSubject,idTopic);
     }
 
     @PutMapping("/{idMessage}")
     public Message editMessage(@RequestBody Message newMessage, @PathVariable Long idMessage,@PathVariable Long idSubject) {
-        newMessage.setSubject(new Subject(idMessage,""));
+        newMessage.setSubject(new Subject(idMessage,"",null));
         return messageService.editMessage(newMessage, idMessage);
     }
 

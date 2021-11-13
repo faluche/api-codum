@@ -14,7 +14,7 @@ public class MessageModelAssembler  implements RepresentationModelAssembler<Mess
     @Override
     public EntityModel<Message> toModel(Message message) {
         return EntityModel.of(message,
-                linkTo(methodOn(MessageController.class).one(message.getId(),message.getSubject().getId())).withSelfRel(),
-                linkTo(methodOn(MessageController.class).all(message.getSubject().getId())).withRel("messages"));
+                linkTo(methodOn(MessageController.class).one(message.getId(),message.getSubject().getId(),message.getSubject().getTopic().getId())).withSelfRel(),
+                linkTo(methodOn(MessageController.class).all(message.getSubject().getId(),message.getSubject().getTopic().getId())).withRel("messages"));
     }
 }
