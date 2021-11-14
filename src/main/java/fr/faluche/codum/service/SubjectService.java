@@ -6,7 +6,6 @@ import fr.faluche.codum.exception.TopicNotFoundException;
 import fr.faluche.codum.model.Subject;
 import fr.faluche.codum.model.assembler.SubjectModelAssembler;
 import fr.faluche.codum.repository.SubjectRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -22,7 +21,7 @@ import static fr.faluche.codum.util.Utils.checkIfResourceExists;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-@Slf4j
+
 @Service
 public class SubjectService {
 

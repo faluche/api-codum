@@ -1,8 +1,9 @@
-package fr.faluche.codum.exception.Advice;
+package fr.faluche.codum.exception.advice;
 
 import fr.faluche.codum.exception.MessageNotFoundException;
 import fr.faluche.codum.exception.SubjectNotFoundException;
 import fr.faluche.codum.exception.TopicNotFoundException;
+import fr.faluche.codum.exception.CityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,13 @@ public class NotFoundAdvice {
     @ExceptionHandler(TopicNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     String topicNotFoundHandler(TopicNotFoundException e) {
+        return e.getMessage();
+    }
+
+    @ResponseBody
+    @ExceptionHandler(CityNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    String cityNotFoundHandler(CityNotFoundException e) {
         return e.getMessage();
     }
 }
