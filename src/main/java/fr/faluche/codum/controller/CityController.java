@@ -17,6 +17,8 @@ public class CityController {
 
     @PostMapping
     public City newCity(@RequestBody City city,@PathVariable Long idTopic) {
+        cityService.topicExists(idTopic);
+        cityService.isTopicCity(idTopic);
         city.setTopic(new Topic(idTopic,""));
         return cityService.newCity(city);
     }
